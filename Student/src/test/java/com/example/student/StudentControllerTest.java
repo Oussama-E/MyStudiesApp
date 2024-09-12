@@ -71,8 +71,14 @@ public class StudentControllerTest {
 
         mockMvc.perform(get("/api/student/all").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$").isArray())
-                ;
+                .andExpect(jsonPath("$").isArray());
+    }
 
+    @Test
+    public void testGetStudentsWithAWrongSet() throws Exception {
+        when(studentService.getStudents()).thenReturn(null);
+
+        mockMvc.perform(get("/api/student/all").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }
