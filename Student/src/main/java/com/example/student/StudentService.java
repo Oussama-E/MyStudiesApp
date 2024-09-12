@@ -20,4 +20,8 @@ public class StudentService {
     public Set<Student> getStudents(){
         return new HashSet<>(studentRepository.findAll());
     }
+
+    public Student createStudent(Student s) {
+        return studentRepository.save(s);
+    }
 }

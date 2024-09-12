@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDate;
 import java.util.Set;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -92,6 +93,6 @@ public class StudentControllerTest {
         newStudent.setBirthdate(LocalDate.parse("2003-09-20"));
         newStudent.setGrade(2);
 
-        when(studentService.createStudent()).thenReturn(newStudent);
+        when(studentService.createStudent(any(Student.class))).thenReturn(newStudent);
     }
 }

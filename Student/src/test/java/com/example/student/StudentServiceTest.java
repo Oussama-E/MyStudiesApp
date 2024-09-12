@@ -94,7 +94,7 @@ public class StudentServiceTest {
         assertEquals(2, result.getGrade());
         assertEquals("Nyustu", result.getLastname());
         assertEquals("Dent", result.getFirstname());
-        assertEquals("2003-09-20", result.getBirthdate());
+        assertEquals(LocalDate.parse("2003-09-20"), result.getBirthdate());
     }
 
 }
