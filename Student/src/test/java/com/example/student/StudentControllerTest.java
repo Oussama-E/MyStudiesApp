@@ -69,9 +69,9 @@ public class StudentControllerTest {
     public void testGetStudents() throws Exception {
         when(studentService.getStudents()).thenReturn(students);
 
-        mockMvc.perform(get("/api/student/all", students).contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/api/student/all").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                //.andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$").isArray())
                 ;
 
     }
