@@ -2,5 +2,5 @@
 GET {{baseUrl}}/api/student/2
 
 ### Get the list of students
-GET {{baseUrl}}/api/student/
+GET {{baseUrl}}/api/student/all
 
