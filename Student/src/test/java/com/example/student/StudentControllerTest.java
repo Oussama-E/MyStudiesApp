@@ -34,6 +34,11 @@ public class StudentControllerTest {
         student1.setId(1);
         student1.setFirstname("John");
         student1.setLastname("Doe");
+
+        student2 = new Student();
+        student2.setId(2);
+        student2.setFirstname("Ay");
+        student2.setLastname("Do");
     }
 
     @Test

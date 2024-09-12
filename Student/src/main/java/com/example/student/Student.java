@@ -22,6 +22,6 @@ public class Student {
     private String firstname;
     private LocalDate birthdate;
     private int grade;
-    @ElementCollection
-    private HashMap<Integer, Long> cursus;
+    /*@ElementCollection
+    private HashMap<Integer, Long> cursus;*/
 }
