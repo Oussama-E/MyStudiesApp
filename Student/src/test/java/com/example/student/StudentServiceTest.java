@@ -8,11 +8,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -72,6 +74,27 @@ public class StudentServiceTest {
         Set<Student> result = studentService.getStudents();
 
         assertEquals(students, result);
+    }
+
+    @Test
+    @DisplayName("Should return the student created")
+    public void testCreateStudent(){
+        Student newStudent = new Student();
+        newStudent.setId(4);
+        newStudent.setLastname("Nyustu");
+        newStudent.setFirstname("Dent");
+        newStudent.setBirthdate(LocalDate.parse("2003-09-20"));
+        newStudent.setGrade(2);
+
+        when(studentRepository.save(any(Student.class))).thenReturn(newStudent);
+
+        Student result = studentService.createStudent(newStudent);
+
+        assertEquals(4, result.getId());
+        assertEquals(2, result.getGrade());
+        assertEquals("Nyustu", result.getLastname());
+        assertEquals("Dent", result.getFirstname());
+        assertEquals("2003-09-20", result.getBirthdate());
     }
 
 }
