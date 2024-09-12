@@ -9,7 +9,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,4 +35,15 @@ public class StudentServiceTest {
         assertEquals("John", result.getFirstname());
         assertEquals("Doe", result.getLastname());
     }
+
+    @Test
+    @DisplayName("Should return not found")
+    public void testGetStudentByIdWithAWrongID(){
+        when(studentRepository.findById(-1)).thenReturn(Optional.empty());
+
+        Student result = studentService.getStudentById(-1);
+
+        assertNull(result);
+    }
+
 }

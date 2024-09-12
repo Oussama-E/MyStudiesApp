@@ -51,4 +51,12 @@ public class StudentControllerTest {
                 .andExpect(jsonPath("$.firstname").value(student1.getFirstname()))
                 .andExpect(jsonPath("$.lastname").value(student1.getLastname()));
     }
+
+    @Test
+    public void testGetStudentByIdWithAWrongID() throws Exception {
+        when(studentService.getStudentById(-1)).thenReturn(null);
+
+        mockMvc.perform(get("/api/student/{id}", student1.getId()).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }
