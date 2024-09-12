@@ -10,4 +10,7 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
+    public Student getStudentById(int id) {
+        return studentRepository.findById(id).orElse(null);
+    }
 }
