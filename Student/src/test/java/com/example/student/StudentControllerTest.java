@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import static org.mockito.Mockito.when;
@@ -80,5 +81,17 @@ public class StudentControllerTest {
 
         mockMvc.perform(get("/api/student/all").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testCreateStudent(){
+        Student newStudent = new Student();
+        newStudent.setId(4);
+        newStudent.setLastname("Nyustu");
+        newStudent.setFirstname("Dent");
+        newStudent.setBirthdate(LocalDate.parse("2003-09-20"));
+        newStudent.setGrade(2);
+
+        when(studentService.createStudent()).thenReturn(newStudent);
     }
 }
