@@ -30,6 +30,7 @@ public class StudentController {
     @GetMapping("/all")
     public ResponseEntity<Set<Student>> getStudents(){
         Set<Student> students = studentService.getStudents();
+        if (students==null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }
