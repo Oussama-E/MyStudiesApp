@@ -7,16 +7,15 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@Entity(name = "students")
+@Entity(name = "StudentEntity")
+@Table(name = "students")
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String lastname;
     private String firstname;

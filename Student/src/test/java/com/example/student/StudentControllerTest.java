@@ -88,7 +88,6 @@ public class StudentControllerTest {
     @Test
     public void testCreateStudent() throws Exception {
         Student newStudent = new Student();
-        newStudent.setId(4);
         newStudent.setLastname("Nyustu");
         newStudent.setFirstname("Dent");
         newStudent.setBirthdate(LocalDate.parse("2003-09-20"));

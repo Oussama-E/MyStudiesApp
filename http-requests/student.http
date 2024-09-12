@@ -4,3 +4,14 @@ GET {{baseUrl}}/api/student/2
 ### Get the list of students
 GET {{baseUrl}}/api/student/all
 
+### Create a student
+POST {{baseUrl}}/api/student
+Content-Type: application/json
+
+{
+  "lastname": "test",
+  "firstname": "test",
+  "birthdate": "2009-09-09",
+  "grade": 4
+}
+
