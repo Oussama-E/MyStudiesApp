@@ -33,12 +33,13 @@ public class StudentServiceTest {
         student.setId(1);
         student.setFirstname("John");
         student.setLastname("Doe");
-        students = Set.of(student, student2);
 
         student2 = new Student();
         student2.setId(2);
         student2.setFirstname("Ay");
         student2.setLastname("Do");
+
+        students = Set.of(student, student2);
 
     }
 
@@ -67,6 +68,10 @@ public class StudentServiceTest {
     @DisplayName("Should return the set of all students")
     public void testGetStudents(){
         when(studentRepository.findAll()).thenReturn(new ArrayList<>(students));
+
+        Set<Student> result = studentService.getStudents();
+
+        assertEquals(students, result);
     }
 
 }
