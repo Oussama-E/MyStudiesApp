@@ -16,6 +16,7 @@ import java.util.Set;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -85,7 +86,7 @@ public class StudentControllerTest {
     }
 
     @Test
-    public void testCreateStudent(){
+    public void testCreateStudent() throws Exception {
         Student newStudent = new Student();
         newStudent.setId(4);
         newStudent.setLastname("Nyustu");
@@ -94,5 +95,8 @@ public class StudentControllerTest {
         newStudent.setGrade(2);
 
         when(studentService.createStudent(any(Student.class))).thenReturn(newStudent);
+
+        mockMvc.perform(post("/api/student").contentType(MediaType.APPLICATION_JSON).content("{\"firstname\": \"Dent\", \"lastname\": \"Nyustu\"}"))
+                .andExpect(status().isCreated());
     }
 }
