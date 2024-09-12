@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 
+import java.util.Set;
+
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -24,6 +26,7 @@ public class StudentControllerTest {
 
     private Student student1;
     private Student student2;
+    private Set<Student> students;
 
     @BeforeEach
     void setUp() {
@@ -39,6 +42,8 @@ public class StudentControllerTest {
         student2.setId(2);
         student2.setFirstname("Ay");
         student2.setLastname("Do");
+
+        students = Set.of(student1, student2);
     }
 
     @Test
@@ -58,5 +63,11 @@ public class StudentControllerTest {
 
         mockMvc.perform(get("/api/student/{id}", student1.getId()).contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testGetStudents() throws Exception {
+        when(studentService.getStudents().thenReturn(students));
+        
     }
 }

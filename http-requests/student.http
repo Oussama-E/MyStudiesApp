@@ -1,3 +1,6 @@
 ### Get the student with the id in url
 GET {{baseUrl}}/api/student/2
 
+### Get the list of students
+GET {{baseUrl}}/api/student/
+
