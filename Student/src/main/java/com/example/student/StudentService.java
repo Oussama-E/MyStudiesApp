@@ -28,7 +28,10 @@ public class StudentService {
     }
 
     public Boolean updateStudent(int id, Student updatedStudent) {
-        Student currentStudent = studentRepository.findById(id).orElseThrow();
+        Student currentStudent = studentRepository.findById(id).orElse(null);
+        if (currentStudent == null) {
+            return false;
+        }
         currentStudent.setLastname(updatedStudent.getLastname());
         currentStudent.setFirstname(updatedStudent.getFirstname());
         currentStudent.setBirthdate(updatedStudent.getBirthdate());

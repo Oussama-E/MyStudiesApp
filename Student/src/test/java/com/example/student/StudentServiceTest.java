@@ -105,14 +105,14 @@ public class StudentServiceTest {
         updatedStudent.setBirthdate(LocalDate.parse("2004-04-04"));
         updatedStudent.setGrade(3);
 
-        when(studentRepository.existsById(2)).thenReturn(true);
+        when(studentRepository.findById(2)).thenReturn(Optional.of(student2));
         when(studentRepository.save(any(Student.class))).thenReturn(updatedStudent);
 
         Boolean result = studentService.updateStudent(2, updatedStudent);
 
         assertTrue(result);
 
-        verify(studentRepository).save(updatedStudent);
+        verify(studentRepository).save(student2);
     }
 
 }
