@@ -86,15 +86,12 @@ public class StudentServiceTest {
         newStudent.setBirthdate(LocalDate.parse("2003-09-20"));
         newStudent.setGrade(2);
 
+        when(studentRepository.existsById(4)).thenReturn(false);
         when(studentRepository.save(any(Student.class))).thenReturn(newStudent);
 
-        Student result = studentService.createStudent(newStudent);
+        Boolean result = studentService.createStudent(newStudent);
 
-        assertEquals(4, result.getId());
-        assertEquals(2, result.getGrade());
-        assertEquals("Nyustu", result.getLastname());
-        assertEquals("Dent", result.getFirstname());
-        assertEquals(LocalDate.parse("2003-09-20"), result.getBirthdate());
+        assertTrue(result);
     }
 
 }
