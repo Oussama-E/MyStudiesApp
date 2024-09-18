@@ -3,6 +3,7 @@ package com.example.student;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -53,6 +54,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return the matching student")
     public void testGetStudentById() throws Exception {
         when(studentService.getStudentById(student1.getId())).thenReturn(student1);
 
@@ -64,6 +66,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return not found for invalid student ID")
     public void testGetStudentByIdWithAWrongID() throws Exception {
         when(studentService.getStudentById(-1)).thenReturn(null);
 
@@ -72,6 +75,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return the set of all students")
     public void testGetStudents() throws Exception {
         when(studentService.getStudents()).thenReturn(students);
 
@@ -81,6 +85,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return not found if students list is empty or null")
     public void testGetStudentsWithAWrongSet() throws Exception {
         when(studentService.getStudents()).thenReturn(null);
 
@@ -89,6 +94,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return created status if student is created successfully")
     public void testCreateStudent() throws Exception {
         Student newStudent = new Student();
         newStudent.setLastname("Nyustu");
@@ -103,6 +109,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return conflict if student creation fails due to existing student")
     public void testCreateStudentWithConflict() throws Exception {
         Student student = new Student();
         student.setId(1);
@@ -116,6 +123,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should update an existing student")
     public void testUpdateStudent() throws Exception {
         Student updatedStudent = new Student();
         updatedStudent.setId(2);
@@ -133,6 +141,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return not found if student update fails due to non-existent student")
     public void testUpdateStudentNotFound() throws Exception {
         Student updatedStudent = new Student();
         updatedStudent.setId(7);
@@ -150,6 +159,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return no content if student deletion is successful")
     public void testDeleteStudent() throws Exception {
         when(studentService.deleteStudent(student2.getId())).thenReturn(true);
 
@@ -158,6 +168,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @DisplayName("Should return not found if student deletion fails due to non-existent student")
     public void testDeleteStudentNotFound() throws Exception {
         when(studentService.deleteStudent(7)).thenReturn(false);
 

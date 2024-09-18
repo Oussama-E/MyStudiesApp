@@ -47,7 +47,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should return the matching student")
+    @DisplayName("Should return the student with the matching ID")
     public void testGetStudentById(){
         when(studentRepository.findById(student.getId())).thenReturn(Optional.of(student));
 
@@ -58,7 +58,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should return not found")
+    @DisplayName("Should return null if student ID is not found")
     public void testGetStudentByIdWithAWrongID(){
         when(studentRepository.findById(-1)).thenReturn(Optional.empty());
 
@@ -78,7 +78,18 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should return true if the student created")
+    @DisplayName("Should return an empty set if repository returns null")
+    public void testGetStudentsWithWrongSet(){
+        when(studentRepository.findAll()).thenReturn(null);
+
+        Set<Student> result = studentService.getStudents();
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty(), "The result should be an empty set when repository returns null");
+    }
+
+    @Test
+    @DisplayName("Should return true if the student is created successfully")
     public void testCreateStudent(){
         Student newStudent = new Student();
         newStudent.setId(4);
@@ -96,7 +107,22 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should update an existing student")
+    @DisplayName("Should return false if student creation fails due to existing student ID")
+    public void testCreateStudentWithConflict(){
+        Student existingStudent = new Student();
+        existingStudent.setId(1);
+        existingStudent.setLastname("Existing");
+        existingStudent.setFirstname("Student");
+
+        when(studentRepository.existsById(1)).thenReturn(true);
+
+        Boolean result = studentService.createStudent(existingStudent);
+
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Should update an existing student successfully")
     public void testUpdateStudent(){
         Student updatedStudent = new Student();
         updatedStudent.setId(2);
@@ -116,7 +142,13 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should delete an existing student")
+    @DisplayName("Should return false if the student to update is not found")
+    public void testUpdateStudentNotFound(){
+
+    }
+
+    @Test
+    @DisplayName("Should return true if the student is deleted successfully")
     public void testDeleteStudent(){
         when(studentRepository.existsById(2)).thenReturn(true);
 
@@ -125,6 +157,12 @@ public class StudentServiceTest {
         assertTrue(result);
 
         verify(studentRepository).deleteById(student2.getId());
+    }
+
+    @Test
+    @DisplayName("Should return false if the student to delete is not found")
+    public void testDeleteStudentNotFound(){
+
     }
 
 
