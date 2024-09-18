@@ -33,8 +33,9 @@ public class StudentController {
 
     @PostMapping
     public ResponseEntity<Student> createStudent(@RequestBody Student std){
-        Student createdStudent = studentService.createStudent(std);
-        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
+        Boolean createdStudent = studentService.createStudent(std);
+        if(!createdStudent) return new ResponseEntity<>(HttpStatus.CONFLICT);
+        else return new ResponseEntity<>(std, HttpStatus.CREATED);
     }
 
 

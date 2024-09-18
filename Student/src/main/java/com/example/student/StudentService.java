@@ -21,7 +21,9 @@ public class StudentService {
         return new HashSet<>(studentRepository.findAll());
     }
 
-    public Student createStudent(Student s) {
-        return studentRepository.save(s);
+    public Boolean createStudent(Student s) {
+        if (studentRepository.existsById(s.getId())) return false;
+        studentRepository.save(s);
+        return true;
     }
 }
