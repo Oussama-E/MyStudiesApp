@@ -15,6 +15,7 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -77,7 +78,7 @@ public class StudentServiceTest {
     }
 
     @Test
-    @DisplayName("Should return the student created")
+    @DisplayName("Should return true if the student created")
     public void testCreateStudent(){
         Student newStudent = new Student();
         newStudent.setId(4);
@@ -92,6 +93,26 @@ public class StudentServiceTest {
         Boolean result = studentService.createStudent(newStudent);
 
         assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Should update an existing student")
+    public void testUpdateStudent(){
+        Student updatedStudent = new Student();
+        updatedStudent.setId(1);
+        updatedStudent.setLastname("Doux");
+        updatedStudent.setFirstname("Hi");
+        updatedStudent.setBirthdate(LocalDate.parse("2004-04-04"));
+        updatedStudent.setGrade(3);
+
+        when(studentRepository.existsById(2)).thenReturn(true);
+        when(studentRepository.save(any(Student.class))).thenReturn(updatedStudent);
+
+        Boolean result = studentService.updateStudent(updatedStudent);
+
+        assertTrue(result);
+
+        verify(studentRepository).save(updatedStudent);
     }
 
 }
