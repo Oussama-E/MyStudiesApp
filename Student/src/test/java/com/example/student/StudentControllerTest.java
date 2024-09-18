@@ -98,4 +98,17 @@ public class StudentControllerTest {
         mockMvc.perform(post("/api/student").contentType(MediaType.APPLICATION_JSON).content("{\"firstname\": \"Dent\", \"lastname\": \"Nyustu\"}"))
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    public void testCreateStudentWithConflict() throws Exception {
+        Student student = new Student();
+        student.setId(1);
+        student.setLastname("Abc");
+        student.setFirstname("def");
+
+        when(studentService.createStudent(any(Student.class))).thenReturn(student);
+
+        mockMvc.perform(post("/api/student").contentType(MediaType.APPLICATION_JSON).content("{\"firstname\": \"def\", \"lastname\": \"abc\"}"))
+                .andExpect(status().isConflict());
+    }
 }
