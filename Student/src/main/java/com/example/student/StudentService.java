@@ -39,4 +39,10 @@ public class StudentService {
         studentRepository.save(currentStudent);
         return true;
     }
+
+    public Boolean deleteStudent(int id) {
+        if (studentRepository.existsById(id))
+            studentRepository.deleteById(id);
+        return true;
+    }
 }

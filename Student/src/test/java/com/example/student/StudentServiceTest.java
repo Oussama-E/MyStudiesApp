@@ -118,7 +118,7 @@ public class StudentServiceTest {
     @Test
     @DisplayName("Should delete an existing student")
     public void testDeleteStudent(){
-        when(studentRepository.findById(2)).thenReturn(Optional.of(student2));
+        when(studentRepository.existsById(2)).thenReturn(true);
 
         Boolean result = studentService.deleteStudent(student2.getId());
 
