@@ -156,4 +156,12 @@ public class StudentControllerTest {
         mockMvc.perform(delete("/api/student/2").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    public void testDeleteStudentNotFound() throws Exception {
+        when(studentService.deleteStudent(7)).thenReturn(false);
+
+        mockMvc.perform(delete("/api/student/2").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 }

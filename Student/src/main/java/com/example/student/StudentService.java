@@ -41,8 +41,9 @@ public class StudentService {
     }
 
     public Boolean deleteStudent(int id) {
-        if (studentRepository.existsById(id))
-            studentRepository.deleteById(id);
+        if (!studentRepository.existsById(id))
+            return false;
+        studentRepository.deleteById(id);
         return true;
     }
 }
