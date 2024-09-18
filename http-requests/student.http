@@ -15,3 +15,14 @@ Content-Type: application/json
   "grade": 4
 }
 
+### Update a student
+PUT {{baseUrl}}/api/student/2
+Content-Type: application/json
+
+{
+  "lastname": "abc",
+  "firstname": "def",
+  "birthdate": "2004-04-04",
+  "grade": 3
+}
+
