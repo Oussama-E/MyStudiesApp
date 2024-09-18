@@ -1,5 +1,5 @@
 ### Get the student with the id in url
-GET {{baseUrl}}/api/student/2
+GET {{baseUrl}}/api/student/4
 
 ### Get the list of students
 GET {{baseUrl}}/api/student/all
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Update a student
-PUT {{baseUrl}}/api/student/2
+PUT {{baseUrl}}/api/student/4
 Content-Type: application/json
 
 {
@@ -25,4 +25,7 @@ Content-Type: application/json
   "birthdate": "2004-04-04",
   "grade": 3
 }
+
+### Delete a student
+DELETE {{baseUrl}}/api/student/4
 
