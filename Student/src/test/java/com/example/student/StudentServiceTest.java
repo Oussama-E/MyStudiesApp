@@ -144,7 +144,18 @@ public class StudentServiceTest {
     @Test
     @DisplayName("Should return false if the student to update is not found")
     public void testUpdateStudentNotFound(){
+        Student updatedStudent = new Student();
+        updatedStudent.setId(7);
+        updatedStudent.setLastname("Do");
+        updatedStudent.setFirstname("Ay");
+        updatedStudent.setBirthdate(LocalDate.parse("2001-01-01"));
+        updatedStudent.setGrade(2);
 
+        when(studentRepository.findById(7)).thenReturn(Optional.empty());
+
+        Boolean result = studentService.updateStudent(7, updatedStudent);
+
+        assertFalse(result);
     }
 
     @Test
@@ -162,7 +173,11 @@ public class StudentServiceTest {
     @Test
     @DisplayName("Should return false if the student to delete is not found")
     public void testDeleteStudentNotFound(){
+        when(studentRepository.existsById(7)).thenReturn(false);
 
+        Boolean result = studentService.deleteStudent(7);
+
+        assertFalse(result);
     }
 
 

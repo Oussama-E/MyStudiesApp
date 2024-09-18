@@ -2,6 +2,7 @@ package com.example.student;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +19,8 @@ public class StudentService {
     }
 
     public Set<Student> getStudents(){
-        return new HashSet<>(studentRepository.findAll());
+        Collection<Student> students = studentRepository.findAll();
+        return students != null ? new HashSet<>(students) : new HashSet<>();
     }
 
     public Boolean createStudent(Student s) {
