@@ -19,8 +19,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class StudentControllerTest {
     private MockMvc mockMvc;
@@ -131,5 +130,23 @@ public class StudentControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedStudent)))  // Sérialiser l'objet Student en JSON
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateStudentNotFound() throws Exception {
+        Student updatedStudent = new Student();
+        updatedStudent.setId(7);
+        updatedStudent.setLastname("Doe");
+        updatedStudent.setFirstname("Jane");
+        updatedStudent.setBirthdate(LocalDate.parse("2000-01-01"));
+        updatedStudent.setGrade(2);
+
+        when(studentService.updateStudent(eq(7), any(Student.class))).thenReturn(false);
+
+        mockMvc.perform(put("/students/7")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedStudent)))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Student not found"));
     }
 }
