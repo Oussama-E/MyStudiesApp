@@ -27,8 +27,8 @@ public class StudentService {
         return true;
     }
 
-    public Boolean updateStudent(Student updatedStudent) {
-        Student currentStudent = studentRepository.findById(updatedStudent.getId()).orElseThrow();
+    public Boolean updateStudent(int id, Student updatedStudent) {
+        Student currentStudent = studentRepository.findById(id).orElseThrow();
         currentStudent.setLastname(updatedStudent.getLastname());
         currentStudent.setFirstname(updatedStudent.getFirstname());
         currentStudent.setBirthdate(updatedStudent.getBirthdate());

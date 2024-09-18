@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -118,15 +119,15 @@ public class StudentControllerTest {
     @Test
     public void testUpdateStudent() throws Exception {
         Student updatedStudent = new Student();
-        updatedStudent.setId(1);
+        updatedStudent.setId(2);
         updatedStudent.setLastname("Doux");
         updatedStudent.setFirstname("Hi");
         updatedStudent.setBirthdate(LocalDate.parse("2004-04-04"));
         updatedStudent.setGrade(3);
 
-        when(studentService.updateStudent(any(Student.class))).thenReturn(true);
+        when(studentService.updateStudent(eq(2), any(Student.class))).thenReturn(true);
 
-        mockMvc.perform(put("/students/2")
+        mockMvc.perform(put("/api/student/2")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedStudent)))  // Sérialiser l'objet Student en JSON
                 .andExpect(status().isOk());

@@ -38,5 +38,11 @@ public class StudentController {
         else return new ResponseEntity<>(std, HttpStatus.CREATED);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student std){
+        Boolean updatedStudent = studentService.updateStudent(id, std);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

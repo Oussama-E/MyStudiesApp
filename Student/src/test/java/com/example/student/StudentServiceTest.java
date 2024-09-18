@@ -99,7 +99,7 @@ public class StudentServiceTest {
     @DisplayName("Should update an existing student")
     public void testUpdateStudent(){
         Student updatedStudent = new Student();
-        updatedStudent.setId(1);
+        updatedStudent.setId(2);
         updatedStudent.setLastname("Doux");
         updatedStudent.setFirstname("Hi");
         updatedStudent.setBirthdate(LocalDate.parse("2004-04-04"));
@@ -108,7 +108,7 @@ public class StudentServiceTest {
         when(studentRepository.existsById(2)).thenReturn(true);
         when(studentRepository.save(any(Student.class))).thenReturn(updatedStudent);
 
-        Boolean result = studentService.updateStudent(updatedStudent);
+        Boolean result = studentService.updateStudent(2, updatedStudent);
 
         assertTrue(result);
 
