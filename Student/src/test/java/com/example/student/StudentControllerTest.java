@@ -1,5 +1,6 @@
 package com.example.student;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -15,8 +16,7 @@ import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -26,6 +26,8 @@ public class StudentControllerTest {
     private StudentService studentService;
     @InjectMocks
     private StudentController studentController;
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private Student student1;
     private Student student2;
@@ -110,5 +112,22 @@ public class StudentControllerTest {
 
         mockMvc.perform(post("/api/student").contentType(MediaType.APPLICATION_JSON).content("{\"firstname\": \"def\", \"lastname\": \"abc\"}"))
                 .andExpect(status().isConflict());
+    }
+
+    @Test
+    public void testUpdateStudent() throws Exception {
+        Student updatedStudent = new Student();
+        updatedStudent.setId(1);
+        updatedStudent.setLastname("Doux");
+        updatedStudent.setFirstname("Hi");
+        updatedStudent.setBirthdate(LocalDate.parse("2004-04-04"));
+        updatedStudent.setGrade(3);
+
+        when(studentService.updateStudent(any(Student.class))).thenReturn(true);
+
+        mockMvc.perform(put("/students/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedStudent)))  // Sérialiser l'objet Student en JSON
+                .andExpect(status().isOk());
     }
 }
