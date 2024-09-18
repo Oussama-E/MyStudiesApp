@@ -143,9 +143,17 @@ public class StudentControllerTest {
 
         when(studentService.updateStudent(eq(7), any(Student.class))).thenReturn(false);
 
-        mockMvc.perform(put("/students/7")
+        mockMvc.perform(put("/api/student/7")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedStudent)))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testDeleteStudent() throws Exception {
+        when(studentService.deleteStudent(student2.getId()));
+
+        mockMvc.perform(delete("/api/student/2").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 }
