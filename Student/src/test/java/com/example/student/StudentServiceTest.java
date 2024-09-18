@@ -108,11 +108,24 @@ public class StudentServiceTest {
         when(studentRepository.findById(2)).thenReturn(Optional.of(student2));
         when(studentRepository.save(any(Student.class))).thenReturn(updatedStudent);
 
-        Boolean result = studentService.updateStudent(2, updatedStudent);
+        Boolean result = studentService.updateStudent(student2.getId(), updatedStudent);
 
         assertTrue(result);
 
         verify(studentRepository).save(student2);
     }
+
+    @Test
+    @DisplayName("Should delete an existing student")
+    public void testDeleteStudent(){
+        when(studentRepository.findById(2)).thenReturn(Optional.of(student2));
+
+        Boolean result = studentService.deleteStudent(student2.getId());
+
+        assertTrue(result);
+
+        verify(studentRepository).deleteById(student2.getId());
+    }
+
 
 }
