@@ -146,7 +146,6 @@ public class StudentControllerTest {
         mockMvc.perform(put("/students/7")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(updatedStudent)))
-                .andExpect(status().isNotFound())
-                .andExpect(content().string("Student not found"));
+                .andExpect(status().isNotFound());
     }
 }

@@ -41,7 +41,8 @@ public class StudentController {
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable int id, @RequestBody Student std){
         Boolean updatedStudent = studentService.updateStudent(id, std);
-        return new ResponseEntity<>(HttpStatus.OK);
+        if (!updatedStudent) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
