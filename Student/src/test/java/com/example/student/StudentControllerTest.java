@@ -151,7 +151,7 @@ public class StudentControllerTest {
 
     @Test
     public void testDeleteStudent() throws Exception {
-        when(studentService.deleteStudent(student2.getId()));
+        when(studentService.deleteStudent(student2.getId())).thenReturn(true);
 
         mockMvc.perform(delete("/api/student/2").contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
